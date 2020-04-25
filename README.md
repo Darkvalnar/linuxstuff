@@ -1,8 +1,16 @@
 # linuxstuff
 
-Trackify is a little bash script that shows what Spotify is playing in terminal, using SP.
+######Trackify
 
-Proxer will now fetch proxies, store them in a file and then check every every proxy within that file.
+This is a little bash script that shows what Spotify is playing in terminal, using SP.
+
+
+
+
+
+######Proxer
+![Proxer initial start](https://i.imgur.com/cZI50jb.png)
+This program will now fetch proxies, store them in a file and then check every every proxy within that file.
 It does this by sending a GET request to the simple version of icanhazip via the proxy.
 If the proxy is alive, it will be displayed as such and will be stored.
 
@@ -10,4 +18,8 @@ At the end of the checking operation, it will then overwrite the entire file wit
 
 This process is optional, you will be prompted if you would like to exit, after the intial fetching.
 
-![Proxer initial start](https://i.imgur.com/cZI50jb.png)
+**Dependencies**
+* BeautifulSoup4
+* Python 3.8.2 (recommened, might work with older versions)
+* Requests
+
