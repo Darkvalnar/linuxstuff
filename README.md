@@ -1,6 +1,8 @@
-# linuxstuff
+Hello there, this is my own little repository with stuff that I made, mostly for myself.
+As such, there isn't anything too crazy in here, mainly vanity stuff or some useful things for whatever I do.
 
-######Trackify
+
+# Trackify
 
 This is a little bash script that shows what Spotify is playing in terminal, using SP.
 
@@ -8,7 +10,7 @@ This is a little bash script that shows what Spotify is playing in terminal, usi
 
 
 
-######Proxer
+# Proxer
 ![Proxer initial start](https://i.imgur.com/cZI50jb.png)
 This program will now fetch proxies, store them in a file and then check every every proxy within that file.
 It does this by sending a GET request to the simple version of icanhazip via the proxy.
