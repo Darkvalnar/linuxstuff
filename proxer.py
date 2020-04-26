@@ -34,9 +34,6 @@ asciiart = (r"""
         ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝
 """)
 
-# let the user decide which name and format for the list is being used
-
-
 
 # the setup function where we declare the proxy website and which site we check it against
 # right now the simple version of canihazip is pretty good for that, however it is not neccessary
@@ -220,6 +217,7 @@ if args.scan:
         print ("Starting Pr0x3r in guided mode")
         print (liner2)
 
+        # let the user decide which name and format for the list is being used
         filename = input("Target name for proxylist (without format): ")
         fileformat = input("Target format for proxy list: ")
         filepath = filename + fileformat
