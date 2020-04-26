@@ -11,7 +11,7 @@ This is a little bash script that shows what Spotify is playing in terminal, usi
 
 
 # Proxer
-![Proxer initial start](https://i.imgur.com/cZI50jb.png)
+![Proxer initial start](https://i.imgur.com/CA1Y30j.png)
 
 This program will fetch proxies, store them in a file and then check every proxy within that file.
 It does this by sending a GET request to the simple version of icanhazip via the proxy.
