@@ -21,6 +21,8 @@ At the end of the checking operation, it will then overwrite the entire file wit
 
 This process is optional, you will be prompted if you would like to exit, after the intial fetching.
 
+Recommended to run with -h or --help on first start
+
 **Dependencies**
 * [BeautifulSoup4](https://www.crummy.com/software/BeautifulSoup/bs4/doc/#installing-beautiful-soup)
 * Python 3 (might work in older versions, probably not tho)
