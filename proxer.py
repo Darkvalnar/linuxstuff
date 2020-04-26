@@ -1,18 +1,31 @@
-#!/usr/bin python
+#!/usr/bin/python3
 
 __author__ = 'Rawlings'
 __contact__ = 'sh0t@hashbang.sh'
 
 # grabbing dependencies
+import argparse
 import sys
 import requests
 from bs4 import BeautifulSoup
 
+version = " 0.3"
 counter = 0
 liner =  ("-----------------------------------------------------------------")
 liner2 = ("#################################################################")
+#text = "Get those pr0xies boy" 
+text = "For a guided start run -s, for a quickstart run -s with -f and specify your file"
+parser = argparse.ArgumentParser(description=text)
 
-print (r"""\
+# setting up command line args here
+parser.add_argument("-s", "--scan", help="fetch proxies", action="store_true")
+parser.add_argument("-f", "--file", help="specify output file for proxylist", type=str)
+parser.add_argument("-v", "--version", help="outputs version", action="store_true")
+
+args = parser.parse_args()
+
+
+asciiart = (r"""
         ██████╗ ██████╗  ██████╗ ██╗  ██╗██████╗ ██████╗ 
         ██╔══██╗██╔══██╗██╔═████╗╚██╗██╔╝╚════██╗██╔══██╗
         ██████╔╝██████╔╝██║██╔██║ ╚███╔╝  █████╔╝██████╔╝
@@ -20,36 +33,29 @@ print (r"""\
         ██║     ██║  ██║╚██████╔╝██╔╝ ██╗██████╔╝██║  ██║
         ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝
 """)
-print (liner2)
 
 # let the user decide which name and format for the list is being used
-print ("Pr0x3r, made by Rawlings.")
-print (liner)
-input("Press any key to continue")
-print (liner2)
 
-filename = input("Target name for proxylist (without format): ")
-fileformat = input("Target format for proxy list: ")
-filepath = filename + fileformat
 
 
 # the setup function where we declare the proxy website and which site we check it against
 # right now the simple version of canihazip is pretty good for that, however it is not neccessary
 def setup():
-    print ("Got IP checker and Proxywebsite")
     # the website we use to check if our proxies work, using simple version of canihazip for simplicity
     url = "https://www.canihazip.com/s"
 
     # the proxy site(s) we are scraping
     proxyDomain = "https://free-proxy-list.net/"
+    proxyDomain1 = "https://www.httptunnel.ge/ProxyListForFree.aspx"
 
-    return url, proxyDomain;
+    return url, proxyDomain, proxyDomain1;
 
 # the actual proxy fetcher starts operating here
 def fetch():
     
     print ("Loading fetcher..")
-    url, proxyDomain = setup()
+    print ("storing proxies in " + filepath)
+    url, proxyDomain, proxyDomain1 = setup()
     counter = 0
     # we make a get request to the website
     r = requests.get(proxyDomain)
@@ -80,8 +86,25 @@ def fetch():
             pass
 
        
+    # same as above but different proxy site
+    r1 = requests.get(proxyDomain1)
+    soup = BeautifulSoup(r1.content, "html.parser")
+    table = soup.find("table", {"id" : "ctl00_ContentPlaceHolder1_GridViewNEW"})
+    
+    for row in table.find_all("tr"):
+        coloumns = row.find_all("td")
+        
+        try:
+            content = coloumns[0].get_text()
+            counter +=1
+            f = open(filepath, "a")
+            f.write (content.split("\n"))
+            f.close()
+        except:
+            pass
+       
     print ("Fetched " + str(counter) + " proxies")
-    print (liner2)
+    #print (liner2)
     choice = input("Would you like to scan all proxies now? (y/n) ")
     
     if choice == "y":
@@ -99,10 +122,9 @@ def fetch():
 
 # function setup to check ALL fetched proxies    
 def checker():
-    print ("Loading checker..")
-    url, proxyDomain = setup()
+    url, proxyDomain, proxyDomain1 = setup()
     content, counter = fetch()
-    print ("Welcome to flavortown baby")
+    print ("Loading checker..")
     print (liner2)
     print ("Checking " + str(counter) + " proxies." + "\n" + "This may take a while, you should grab a coffee!")
     print (liner2)
@@ -177,5 +199,31 @@ def writer():
     print (liner2)
     return;
 
+# arg check
 
-writer()
+if args.version:
+    print("Pr0x3r currently running at" + version)
+    exit()
+
+# run the program, checl if file was specified already
+if args.scan:
+    if args.file:
+        filepath = args.file
+        print (asciiart)
+        writer()
+    else:
+    # run normal if no args for file were specified
+        print (asciiart)
+        print (liner2)
+        print ("Pr0x3r, made by Rawlings.")
+        print (liner)
+        print ("Starting Pr0x3r in guided mode")
+        print (liner2)
+
+        filename = input("Target name for proxylist (without format): ")
+        fileformat = input("Target format for proxy list: ")
+        filepath = filename + fileformat
+        writer()
+else:
+    print("Please run in --scan mode, check -h for additional info")
+    exit()
