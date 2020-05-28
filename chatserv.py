@@ -1,3 +1,8 @@
+#!/usr/bin/python3
+
+__author__ = 'Rawlings'
+__contact__ = 'sh0t@hashbang.sh'
+
 import socket
 import threading
 import argparse
@@ -82,6 +87,8 @@ def receive():
         thread.start()
 
 
+# Conditional branches to check for CLI args
+
 if args.host:
     if args.port:
         host = args.host
@@ -94,7 +101,6 @@ if args.host:
         port = 55555
         receive()
 else:
-    print("DECUCK")
     host = "127.0.0.1"
     port = 55555
     receive()
